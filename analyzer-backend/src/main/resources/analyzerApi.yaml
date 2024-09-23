@@ -1,0 +1,63 @@
+openapi: 3.0.3
+info:
+  title: Analyzer API
+  description: |-
+  version: 1.0.0
+paths:
+  /text/analysis:
+    post:
+      tags:
+        - TextAnalyzer
+      summary: Analyzes a given text
+      description: Analyze the given text concerning vowls and consonants
+      operationId: postTextAnalysis
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/textAnalyzerInput'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/textAnalyzerOutput'
+        '400':
+          description: Invalid status value
+      
+
+components:
+  schemas:
+    textAnalyzerInput:
+      type: object
+      properties:
+        modus:
+          type: string
+          enum: [VOWELS, CONSONANTS, ALL] 
+          example: "VOWELS"
+        text:
+          type: string
+          description: Text to be analysed
+          example: "Das ist ein Text"
+    textAnalyzerOutput:
+      type: object
+      properties: 
+        timestamp:
+          type: string
+          example: "20.04.2024 15:00"
+        originalText:
+          type: string
+          description: original Text that was analyzed
+          example: "Das ist ein Text"
+        analyzedText:
+          type: array
+          items:
+            type: string
+          description: The analysed text
+          example: 
+            - A exists 1 time
+            - E exists 2 times
+            - I exists 2 times
+      
+        

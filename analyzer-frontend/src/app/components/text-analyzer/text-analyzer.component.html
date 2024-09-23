@@ -1,0 +1,57 @@
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Data input:</h2>
+      <form #form="ngForm" (submit)="analyzeText()" name="form">
+        <div class="form-group mb-3">
+          <label for="textInput">Text to be analysed:</label>
+          <textarea
+            id="textInput"
+            type="textarea"
+            class="form-control"
+            name="textInput"
+            [(ngModel)]="input.text"
+            #textInput="ngModel" 
+            rows="3" 
+            required>
+          </textarea>
+          <div *ngIf="textInput.invalid && textInput.touched" class="text-danger">
+            Text is required
+          </div>
+        </div>
+        
+        <div class="form-group mb-3">
+          <label for="contentToBeAnalysed">Pick which content should be analysed:</label>
+          <select class="form-select mb-3" id="contentToBeAnalysed"  [(ngModel)]="input.modus" name ="modus">
+            <option value="ALL">all letters</option>
+            <option value="VOWELS">only vowels</option>
+            <option value="CONSONANTS">only consonants</option>
+          </select>
+        </div>
+        
+        <div class="form-check form-switch mb-3">
+          <input class="form-check-input" type="checkbox" role="switch" id="onlineCheck" [(ngModel)]="online" name ="online">
+          <label class="form-check-label" for="onlineCheck">online</label>
+        </div>
+        <button type="submit" class="btn btn-primary mt-2" [disabled]="form.invalid">analyse</button>
+      </form>
+
+      <button class="btn btn-primary mt-2"(click)="clearResults()" [disabled]="results.length === 0">clear results</button>
+
+    </div>
+    <div class="col-md-6">
+      <h2>Results:</h2>
+      <ul class="list-group mt-3">
+        <li *ngFor="let item of results" class="list-group-item">
+          <div><strong>Timestamp:</strong> {{item.timestamp}}</div>
+          <div style="word-wrap: break-word;"><strong>Original Text:</strong> {{item.originalText}}</div>
+          <div><strong>Analyzed Text:</strong></div>
+          <ul>
+            <li *ngFor="let text of item.analyzedText">{{text}}</li>
+          </ul>
+        </li>
+      </ul>      
+    </div>
+  </div>
+</div>
