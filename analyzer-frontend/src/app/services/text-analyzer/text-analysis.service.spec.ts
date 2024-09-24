@@ -2,13 +2,21 @@ import { TestBed } from '@angular/core/testing';
 
 import { TextAnalysisService } from './text-analysis.service';
 import { TextAnalyzerInput, TextAnalyzerOutput } from '../../model/text-analyzer.model';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('TextAnalysisService', () => {
   let service: TextAnalysisService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(TextAnalysisService);
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      providers: [
+        provideHttpClient(),               // HTTP Client für die Bereitstellung
+        provideHttpClientTesting    // HTTP Testing Controller für Testzwecke
+      ]
+    }).compileComponents();
+
+    service = TestBed.inject(TextAnalysisService);  // Service injizieren
   });
 
   it('should be created', () => {
