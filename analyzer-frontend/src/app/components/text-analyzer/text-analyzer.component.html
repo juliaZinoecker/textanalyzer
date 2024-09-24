@@ -1,8 +1,8 @@
 
-<div class="container mt-4">
+<div class="container mt-5 mb-5 p-3 bg-body-secondary">
   <div class="row">
     <div class="col-md-6">
-      <h2>Data input:</h2>
+      <h3>Data input:</h3>
       <form #form="ngForm" (submit)="analyzeText()" name="form">
         <div class="form-group mb-3">
           <label for="textInput">Text to be analysed:</label>
@@ -41,7 +41,7 @@
 
     </div>
     <div class="col-md-6">
-      <h2>Results:</h2>
+      <h3>Results:</h3>
       <ul class="list-group mt-3">
         <li *ngFor="let item of results" class="list-group-item">
           <div><strong>Timestamp:</strong> {{item.timestamp}}</div>
